@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "g167kcZSNnqzD2WqNUS65Snm4U5ZWZZcRe2MkcDlwYqRW9Me2QFoFSavLuQmM6bjFrohnsRYNdgh64gyyS2lIg==",
+  "dgSpecHash": "/S6Ud5DiD9dV9WNNVvPTz6+rRQMGDikj48OSJfrGnJvznD6Pzhtcum32MWeUQRDZ/uUZZj9l+TOjRyGffH2lUg==",
   "success": true,
-  "projectFilePath": "/home/stm/DecimalCTests/C#_Api/Tester/DecimalOperationsTester/Decimal.csproj",
+  "projectFilePath": "/home/stm/DecimalCTest/C#_Api/Tester/DecimalOperationsTester/Decimal.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

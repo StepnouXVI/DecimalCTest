@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/stm/DecimalCTests/C#_Api/Generator/DecimalGenerator/DecimalGenerator.csproj",
+      "projectUniqueName": "/home/stm/DecimalCTest/C#_Api/Generator/DecimalGenerator/DecimalGenerator.csproj",
       "projectName": "DecimalGenerator",
-      "projectPath": "/home/stm/DecimalCTests/C#_Api/Generator/DecimalGenerator/DecimalGenerator.csproj",
+      "projectPath": "/home/stm/DecimalCTest/C#_Api/Generator/DecimalGenerator/DecimalGenerator.csproj",
       "packagesPath": "/home/stm/.nuget/packages/",
-      "outputPath": "/home/stm/DecimalCTests/C#_Api/Generator/DecimalGenerator/obj/",
+      "outputPath": "/home/stm/DecimalCTest/C#_Api/Generator/DecimalGenerator/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/stm/.nuget/NuGet/NuGet.Config"
@@ -59,7 +59,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.102/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.201/RuntimeIdentifierGraph.json"
       }
     }
   }
