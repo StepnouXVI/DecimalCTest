@@ -1,0 +1,15 @@
+/home/stm/DecimalGenerator/bin/Debug/net7.0/DecimalGenerator
+/home/stm/DecimalGenerator/bin/Debug/net7.0/DecimalGenerator.deps.json
+/home/stm/DecimalGenerator/bin/Debug/net7.0/DecimalGenerator.runtimeconfig.json
+/home/stm/DecimalGenerator/bin/Debug/net7.0/DecimalGenerator.dll
+/home/stm/DecimalGenerator/bin/Debug/net7.0/DecimalGenerator.pdb
+/home/stm/DecimalGenerator/obj/Debug/net7.0/DecimalGenerator.csproj.AssemblyReference.cache
+/home/stm/DecimalGenerator/obj/Debug/net7.0/DecimalGenerator.GeneratedMSBuildEditorConfig.editorconfig
+/home/stm/DecimalGenerator/obj/Debug/net7.0/DecimalGenerator.AssemblyInfoInputs.cache
+/home/stm/DecimalGenerator/obj/Debug/net7.0/DecimalGenerator.AssemblyInfo.cs
+/home/stm/DecimalGenerator/obj/Debug/net7.0/DecimalGenerator.csproj.CoreCompileInputs.cache
+/home/stm/DecimalGenerator/obj/Debug/net7.0/DecimalGenerator.dll
+/home/stm/DecimalGenerator/obj/Debug/net7.0/refint/DecimalGenerator.dll
+/home/stm/DecimalGenerator/obj/Debug/net7.0/DecimalGenerator.pdb
+/home/stm/DecimalGenerator/obj/Debug/net7.0/DecimalGenerator.genruntimeconfig.cache
+/home/stm/DecimalGenerator/obj/Debug/net7.0/ref/DecimalGenerator.dll

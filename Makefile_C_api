@@ -1,0 +1,48 @@
+CC = gcc
+Flags = -Wall -Wextra -Werror
+DIR = C_Api_For_C\#/
+Source = C_Api_For_C\#/C_Files/
+Headers = C_Api_For_C\#/H_Files/
+Objective = C_Api_For_C\#/O_Files/
+STATIC_LIB = ./C_Api_For_C\#_libs/libc\#_api.a 
+DYNAMIC_LIB = ./C_Api_For_C\#_libs/libc\#_api.a
+
+
+update: clean static_lib
+
+compile: O_Files
+	${CC} ${Flags}  -c ${Source}*.c
+	mv *.o ${Objective}
+
+O_Files:
+	mkdir ${Objective}
+
+cppcheck:
+	cppcheck -q --enable=all ./${Source}/*.c ./${Headers}/*.h
+
+
+executeble:clean compile
+	${CC} ${Flags} -O0 -g -c ${DIR}main.c
+	mv *.o ${Objective}
+	${CC} ${Flags} -O0 -g ${Objective}/*.o -o test.out
+
+
+static_lib: O_Files compile
+	ar rc ${STATIC_LIB} ./${Objective}*.o
+	ranlib ${STATIC_LIB}
+	rm -fr ${Objective}
+
+compile_dynamic_lib: O_Files
+	${CC} ${Flags} ${DYNAMIC_LIB} -c -fPIC ${Source}*.c
+	mv *.o ${Objective}
+
+dynamic_lib: O_Files compile_dynamic_lib
+	gcc -shared -o ${ST} ./${Objective}*.o
+	rm -fr ${Objective}
+
+
+clean:
+	rm -f *.o
+	rm -f *.out
+	rm -fr ${Objective}
+	rm -f ./C_Api_For_C#_libs/libc#_api.a

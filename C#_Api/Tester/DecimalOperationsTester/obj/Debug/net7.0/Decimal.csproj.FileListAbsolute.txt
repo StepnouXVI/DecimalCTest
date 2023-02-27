@@ -1,0 +1,15 @@
+/home/stm/Decimal/obj/Debug/net7.0/Decimal.csproj.AssemblyReference.cache
+/home/stm/Decimal/obj/Debug/net7.0/Decimal.GeneratedMSBuildEditorConfig.editorconfig
+/home/stm/Decimal/obj/Debug/net7.0/Decimal.AssemblyInfoInputs.cache
+/home/stm/Decimal/obj/Debug/net7.0/Decimal.AssemblyInfo.cs
+/home/stm/Decimal/obj/Debug/net7.0/Decimal.csproj.CoreCompileInputs.cache
+/home/stm/Decimal/bin/Debug/net7.0/Decimal
+/home/stm/Decimal/bin/Debug/net7.0/Decimal.deps.json
+/home/stm/Decimal/bin/Debug/net7.0/Decimal.runtimeconfig.json
+/home/stm/Decimal/bin/Debug/net7.0/Decimal.dll
+/home/stm/Decimal/bin/Debug/net7.0/Decimal.pdb
+/home/stm/Decimal/obj/Debug/net7.0/Decimal.dll
+/home/stm/Decimal/obj/Debug/net7.0/refint/Decimal.dll
+/home/stm/Decimal/obj/Debug/net7.0/Decimal.pdb
+/home/stm/Decimal/obj/Debug/net7.0/Decimal.genruntimeconfig.cache
+/home/stm/Decimal/obj/Debug/net7.0/ref/Decimal.dll

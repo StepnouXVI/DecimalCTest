@@ -1,0 +1,9 @@
+update:clean compile
+
+compile:
+	dotnet build -c Release ./C#_Api/Tester/DecimalOperationsTester
+	dotnet build -c Release ./C#_Api/Generator/DecimalGenerator
+    
+clean:
+	rm -fr ./C#_Api/Generator/DecimalGenerator/bin/Release/
+	rm -fr ./C#_Api/Tester/DecimalOperationsTester/bin/Release/

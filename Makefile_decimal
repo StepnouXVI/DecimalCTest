@@ -1,0 +1,18 @@
+CC = gcc
+Flags = -Wall -Wextra -Werror
+Source = s21_decimal/
+INC_LIB = -L
+LIB = ./libs/libs21_decimal.a
+
+decimal_compile:
+	$(CC) $(Flags) $(INC_LIB)$(LIB)  -c $(Source)*.c 
+
+decimal_static_lib: decimal_compile
+	ar rc ${LIB} ./*.o
+	ranlib ${LIB}
+	rm -fr *.o
+
+clean:
+	rm -f libs/s21_decimal.a
+
+update: clean decimal_static_lib

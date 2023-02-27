@@ -1,0 +1,138 @@
+CC = gcc
+FLAGS = -g
+INC_DIR = -L. -I.
+CHECK_LIB = -lcheck
+OS:=$(shell uname -s)
+CCOV = -lgcov --coverage
+
+LIB_HEADER = s21_math.h
+LIB_FILE =
+LIB =
+LIB_DIR = lib/
+OBJ_DIR = obj/
+COV_DIR = coverage_info/
+TEST_DIR = tests/
+EXT_TEST_DIR = tests_externed/
+LIB_OBJ_DIR = $(OBJ_DIR)$(LIB_DIR)
+COV_OBJ_DIR = $(COV_DIR)$(OBJ_DIR)
+
+ifeq ($(OS), Darwin)
+	LIB_FILE += s21_math.a
+	LIB += s21_math.a
+else
+	CHECK_LIB += -lrt -lpthread -lm -lsubunit
+	LIB_FILE = libs21_math.a
+	LIB += -ls21_math
+endif
+
+## Make array of all object files for library
+LIB_SRCS = $(addprefix $(LIB_DIR),s21_abs.c \
+								  s21_acos.c \
+								  s21_asin.c \
+								  s21_atan.c \
+								  s21_ceil.c \
+								  s21_cos.c \
+								  s21_exp.c \
+								  s21_fabs.c \
+								  s21_floor.c \
+								  s21_fmod.c \
+								  s21_log.c \
+								  s21_pow.c \
+								  s21_sin.c \
+								  s21_sqrt.c \
+								  s21_tan.c \
+								  common.c)
+
+## Make array of all test files
+TEST_SRCS = $(addprefix $(TEST_DIR),s21_abs_test.c \
+									s21_acos_test.c \
+									s21_asin_test.c \
+									s21_atan_test.c \
+									s21_ceil_test.c \
+									s21_cos_test.c \
+									s21_exp_test.c \
+									s21_fabs_test.c \
+									s21_floor_test.c \
+									s21_fmod_test.c \
+									s21_log_test.c \
+									s21_pow_test.c \
+									s21_sin_test.c \
+									s21_sqrt_test.c \
+									s21_tan_test.c \
+									s21_math_test.c \
+									s21_math_test_main.c)
+
+## Make array of all externed test files
+EXT_TEST_SRCS = $(addprefix $(EXT_TEST_DIR),s21_abs_test.c \
+									        s21_acos_test.c \
+											s21_asin_test.c \
+											s21_atan_test.c \
+											s21_ceil_test.c \
+											s21_cos_test.c \
+											s21_exp_test.c \
+											s21_fabs_test.c \
+											s21_floor_test.c \
+											s21_fmod_test.c \
+											s21_log_test.c \
+											s21_pow_test.c \
+											s21_sin_test.c \
+											s21_sqrt_test.c \
+											s21_tan_test.c \
+											s21_math_test.c \
+											s21_math_test_main.c)
+
+LIB_OBJS = $(patsubst %.c, $(OBJ_DIR)%.o, $(LIB_SRCS))
+COV_OBJS = $(patsubst %.c, $(COV_OBJ_DIR)%.o, $(LIB_SRCS))
+
+TEST_EXEC = test
+COV_EXEC = $(COV_DIR)test_cov
+COV_INFO = $(COV_DIR)s21_math.info
+COV_REPORT = $(COV_DIR)/lib/index.html
+
+vpath %.c $(LIB_DIR)
+
+all: clean test gcov_report
+
+test: $(LIB_FILE) $(TEST_SRCS)
+	$(CC) $(FLAGS) $(INC_DIR) $(TEST_SRCS) $(LIB) $(CHECK_LIB) -o $(TEST_EXEC)
+
+ext_test: $(LIB_FILE) $(EXT_TEST_SRCS) clean
+	$(CC) $(FLAGS) $(INC_DIR) $(EXT_TEST_SRCS) $(LIB) $(CHECK_LIB) -o $(TEST_EXEC)
+	./$(TEST_EXEC)
+
+gcov_report: $(TEST_SRCS) $(COV_OBJS)
+	$(CC) $(FLAGS) $(INC_DIR) $(CCOV) $(LIB) $^ $(CHECK_LIB) -o $(COV_EXEC)
+	@-./$(COV_EXEC)
+	@gcov -f $(COV_EXEC) -o $(COV_DIR)
+	@lcov -q -c -d $(COV_DIR) -o $(COV_INFO) --exclude "$(TEST_DIR)*"
+	@genhtml -q $(COV_INFO) -o $(COV_DIR)
+	@open $(COV_REPORT)
+	@rm -rf *.gc*
+
+s21_math.a: $(LIB_OBJS)
+	ar rc $@ $^
+	ranlib $@
+
+$(LIB_FILE): $(LIB_OBJS)
+	ar rc $@ $^
+	ranlib $@
+
+$(LIB_OBJ_DIR)%.o: %.c $(LIB_HEADER)
+	@mkdir -p $(LIB_OBJ_DIR)
+	$(CC) $(FLAGS) $(INC_DIR) -c $< -o $@
+
+$(COV_OBJ_DIR)%.o: %.c $(LIB_HEADER)
+	@mkdir -p $(COV_OBJ_DIR)$(LIB_DIR)
+	@$(CC) $(FLAGS) $(INC_DIR) $(CCOV) -c $< -o $@
+
+
+clean:
+	rm -rf $(OBJ_DIR) \
+		   $(LIB_FILE) \
+		   $(TEST_EXEC) \
+		   $(TEST_EXEC).dSYM \
+		   test.log  \
+		   $(COV_DIR) \
+		   *.gc*
+
+rebuild: clean all

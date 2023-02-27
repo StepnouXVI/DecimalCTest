@@ -1,0 +1,125 @@
+
+MATH_FLAGS = 
+COMP_FLAGS = 
+CONV_FLAGS =
+UNAR_FLAGS = 
+
+MATH_FLAGS_FULL = -DADD -DSUB -DMOD -DMUL -DDIV
+COMP_FLAGS_FULL = -DEQUAL -DNOT_EQUAL -DLESS -DLESS_OR_EQUAL -DGREATER -DGREATER_OR_EQUAL
+CONV_FLAGS_FULL = -DFLOAT_TO_DECIMAL -DINT_TO_DECIMAL -DDECIMAL_TO_FLOAT -DDECIMAL_TO_INT
+UNAR_FLAGS_FULL = -DROUND -DTRUNCATE -DNEGATE -DFLOOR
+CC = gcc
+Flags = -Wall -Wextra -Werror
+
+SOURCE = Tests/C_Files/
+COMAPARATORS = $(SOURCE)Comparators/
+MATH = $(SOURCE)Math/
+CONVERTERS = $(SOURCE)Converters/
+UNARY = $(SOURCE)Unary/
+
+HEADERS= ./Tests/H_Files/
+OBJECT = ./Tests/O_Files/
+API_TESTING_LIB = -L./C_Api_For_C\#_libs -lc\#_api
+DECIMAL_LIB = -L./libs -ls21_decimal 
+EXECUTEBLE_DIR = ./Tests/Executeble 
+
+COMMON_C = ${SOURCE}Common/s21_test.c
+COMMON_O = $(OBJECT)s21_test.o
+CHECK_LIB = -lcheck -lrt -lpthread -lm -lsubunit
+
+MATH_STARTER = ./Tests/C_Files/Common/s21_math_tests.c
+COMPARATOR_STARTER = ./Tests/C_Files/Common/s21_comparator_tests.c
+CONVERT_STARTER = ./Tests/C_Files/Common/s21_converters_tests.c
+UNARY_STARTER = ./Tests/C_Files/Common/s21_unary_tests.c
+
+all:
+	make -f Makefile_tests math MATH_FLAGS="${MATH_FLAGS_FULL}"
+	make -f Makefile_tests unary UNAR_FLAGS="${UNARY_FLAGS_FULL}"
+	make -f Makefile_tests comparators COMP_FLAGS="${COMP_FLAGS_FULL}"
+	make -f Makefile_tests converters CONV_FLAGS="${CONV_FLAGS_FULL}"
+
+
+
+compile_starter_math:
+	$(CC) $(Flags) -c ${MATH_STARTER} ${MATH_FLAGS}
+	make -f Makefile_tests move_to_object
+compile_starter_unary:
+	$(CC) $(Flags) -c ${UNARY_STARTER} ${UNAR_FLAGS}
+	make -f Makefile_tests move_to_object
+compile_starter_comparators:
+	$(CC) $(Flags) -c ${COMPARATOR_STARTER} ${COMP_FLAGS}
+	make -f Makefile_tests move_to_object
+compile_starter_converters:
+	$(CC) $(Flags) -c ${CONVERT_STARTER} ${CONV_FLAGS}
+	make -f Makefile_tests move_to_object
+
+compile_math:clean_o common_o 
+	$(CC) $(Flags) -c $(MATH)*.c
+	make -f Makefile_tests move_to_object
+
+compile_unary:clean_o common_o
+	$(CC) $(Flags) -c $(UNARY)*.c
+	make -f Makefile_tests move_to_object
+
+compile_comparators:clean_o common_o
+	$(CC) $(Flags) -c $(COMAPARATORS)*.c
+	make -f Makefile_tests move_to_object
+
+compile_converters:clean_o common_o
+	$(CC) $(Flags) -c $(CONVERTERS)*.c
+	make -f Makefile_tests move_to_object
+
+math:clean_o ${EXECUTEBLE_DIR} compile_math compile_starter_math
+	$(CC) $(Flags)  ${OBJECT}*.o -o math.out $(API_TESTING_LIB) $(DECIMAL_LIB) $(CHECK_LIB) 
+	make -f Makefile_tests clean_o
+	mv *.out ${EXECUTEBLE_DIR}
+
+comparators:clean_o ${EXECUTEBLE_DIR} compile_comparators compile_starter_comparators
+	$(CC) $(Flags)  ${OBJECT}*.o -o comparaters.out $(API_TESTING_LIB) $(DECIMAL_LIB) $(CHECK_LIB) 
+	make -f Makefile_tests clean_o
+	mv *.out ${EXECUTEBLE_DIR}
+
+unary: clean_o ${EXECUTEBLE_DIR} compile_unary compile_starter_unary
+	$(CC) $(Flags)  ${OBJECT}*.o -o unary.out $(API_TESTING_LIB) $(DECIMAL_LIB) $(CHECK_LIB) 
+	make -f Makefile_tests clean_o
+	mv *.out ${EXECUTEBLE_DIR}
+
+converters:clean_o ${EXECUTEBLE_DIR} compile_converters compile_starter_converters
+	$(CC) $(Flags)  ${OBJECT}*.o -o converters.out $(API_TESTING_LIB) $(DECIMAL_LIB) $(CHECK_LIB) 
+	make -f Makefile_tests clean_o
+	mv *.out ${EXECUTEBLE_DIR}
+
+
+update_math:clean_o math
+update_unary:clean_o unary
+update_comparators:clean_o comparators
+update_converters:converters_o converters
+
+
+
+common_o:$(OBJECT)
+	$(CC) $(Flags) -c ${COMMON_C}
+	make -f Makefile_tests move_to_object
+
+update: clean update_comparators update_math update_unary update_converters
+
+${EXECUTEBLE_DIR}:
+	mkdir ${EXECUTEBLE_DIR}
+$(OBJECT):
+	mkdir $(OBJECT)
+
+cppcheck:
+	cppcheck -q --enable=all ./$(Source)/*.c ./$(Headers)/*.h
+
+clean_o:
+	rm -fr $(OBJECT)
+clean_out:
+	rm -fr ${EXECUTEBLE_DIR}
+	rm -f *.out
+
+move_to_object:
+	mv ./*.o ${OBJECT}
+
+clean:clean_o clean_out
+	rm -f *.o
+	rm -f *.a
